@@ -25,7 +25,7 @@ pub fn enum_devices() -> Vec<Node> {
             let file_name = dentry.file_name();
             let file_name = file_name.to_str().unwrap();
 
-            if file_name.starts_with("video") {
+            if file_name.starts_with("video") || file_name.starts_with("v4l-subdev") {
                 let node = Node::new(dentry.path());
                 devices.push(node);
             }
@@ -87,11 +87,28 @@ impl Node {
     /// Returns name of the device by parsing its sysfs entry
     pub fn name(&self) -> Option<String> {
         let index = self.index();
-        let path = format!("{}{}{}", "/sys/class/video4linux/video", index, "/name");
+        let root = if self.is_v4l_subdev() {
+            "/sys/class/video4linux/v4l-subdev"
+        } else {
+            "/sys/class/video4linux/video"
+        };
+        let path = format!("{}{}{}", root, index, "/name");
         let name = fs::read_to_string(path);
         match name {
             Ok(name) => Some(name.trim().to_string()),
             Err(_) => None,
         }
+    }
+
+    /// Returns true if the device is a v4l subdev
+    pub fn is_v4l_subdev(&self) -> bool {
+        self.path
+            .file_name()
+            .map(|x| {
+                x.to_str()
+                    .map(|y| y.starts_with("v4l-subdev"))
+                    .unwrap_or_default()
+            })
+            .unwrap_or_default()
     }
 }
