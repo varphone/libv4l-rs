@@ -72,7 +72,13 @@ impl Node {
         let file_name = self.path.file_name().unwrap();
 
         let mut index_str = String::new();
-        for c in file_name.to_str().unwrap().chars() {
+        let file_name_str = file_name.to_str().unwrap();
+        let file_name_str = if self.is_v4l_subdev() {
+            file_name_str.strip_prefix("v4l-subdev").unwrap()
+        } else {
+            file_name_str.strip_prefix("video").unwrap()
+        };
+        for c in file_name_str.chars() {
             if !c.is_ascii_digit() {
                 continue;
             }
