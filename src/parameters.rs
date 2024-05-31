@@ -2,6 +2,7 @@ use bitflags::bitflags;
 use std::fmt;
 
 bitflags! {
+    #[derive(Copy, Clone, Debug)]
     pub struct Capabilities: u32 {
         #[allow(clippy::unreadable_literal)]
         const TIME_PER_FRAME    = 0x1000;

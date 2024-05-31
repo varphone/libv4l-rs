@@ -6,6 +6,7 @@ use crate::v4l_sys::*;
 
 bitflags! {
     #[allow(clippy::unreadable_literal)]
+    #[derive(Copy, Clone, Debug)]
     pub struct Flags : u32 {
         const COMPRESSED            = 0x0001;
         const EMULATED              = 0x0002;

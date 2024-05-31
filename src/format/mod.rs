@@ -23,6 +23,7 @@ pub use transfer::TransferFunction;
 
 bitflags! {
     #[allow(clippy::unreadable_literal)]
+    #[derive(Copy, Clone, Debug)]
     pub struct Flags : u32 {
         const PREMUL_ALPHA  = 0x00000001;
     }

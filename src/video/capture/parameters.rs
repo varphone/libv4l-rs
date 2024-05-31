@@ -6,6 +6,7 @@ use crate::parameters::Capabilities;
 use crate::v4l_sys::*;
 
 bitflags! {
+    #[derive(Copy, Clone, Debug)]
     pub struct Modes: u32 {
         const HIGH_QUALITY      = 0x1000;
     }

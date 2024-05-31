@@ -32,6 +32,7 @@ pub enum Type {
 
 bitflags! {
     #[allow(clippy::unreadable_literal)]
+    #[derive(Copy, Clone, Debug)]
     pub struct Flags: u32 {
         /// Buffer is mapped
         const MAPPED                = 0x00000001;

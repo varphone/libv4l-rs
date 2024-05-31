@@ -65,6 +65,7 @@ impl fmt::Display for Type {
 
 bitflags! {
     #[allow(clippy::unreadable_literal)]
+    #[derive(Copy, Clone, Debug)]
     pub struct Flags: u32 {
         const DISABLED              = 0x0001;
         const GRABBED               = 0x0002;
